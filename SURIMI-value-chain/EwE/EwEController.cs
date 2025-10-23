@@ -1,10 +1,19 @@
-﻿using Grpc.Surimi;
+﻿using Eii.ControlledVocabularies.Core;
+using Eii.ControlledVocabularies.Utils;
+using Grpc.Surimi;
 
 namespace SURIMI_value_chain.EwE
 {
     public class EwEController : IEwEController
     {
+
         private RunStates m_runstate = RunStates.idle;
+
+        public EwEController()
+        {
+            // Just to test that ControlledVocabularies references are working
+            MultiLevelKey key = MultiLevelKey.FromObject(new Species(), KeyDomain.Species);
+        }
 
         public Task<bool> ContinueAsync(int timeoutMs = 60000)
         {
