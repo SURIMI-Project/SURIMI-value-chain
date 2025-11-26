@@ -12,7 +12,8 @@ namespace SURIMI_value_chain.EwE
         public EwEController()
         {
             // Just to test that ControlledVocabularies references are working
-            MultiLevelKey key = MultiLevelKey.FromObject(new Species(), KeyDomain.Species);
+            var m_multiLevelKeyFactory = new MultiLevelKeyFactory();
+
         }
 
         public Task<bool> ContinueAsync(int timeoutMs = 60000)
