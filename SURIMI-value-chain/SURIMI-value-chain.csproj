@@ -24,4 +24,8 @@
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SURIMI.ServiceDefaults\SURIMI.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>

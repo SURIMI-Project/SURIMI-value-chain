@@ -9,6 +9,7 @@ namespace SURIMI_value_chain
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.AddServiceDefaults();
 
             // Add services to the container.
 

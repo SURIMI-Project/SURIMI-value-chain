@@ -11,11 +11,35 @@ ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 #ENV OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 ENV OTEL_SERVICE_NAME=ValueChain
 
+
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
+ARG GITHUB_TOKEN
+ARG BSR_TOKEN
 WORKDIR /src
-COPY ["NuGet.config", "SURIMI-value-chain/"]
+
+# Copy NuGet configuration
+COPY ["NuGet.config", "."]
+
+# Add authentication for GitHub Packages
+RUN if [ ! -z "$GITHUB_TOKEN" ]; then \
+    dotnet nuget update source github-Official-EwE \
+    --username github \
+    --password $GITHUB_TOKEN \
+    --store-password-in-clear-text \
+    --configfile NuGet.config; \
+    fi
+
+# Add authentication for BSR (if token is provided)
+RUN if [ ! -z "$BSR_TOKEN" ]; then \
+    dotnet nuget update source BSR \
+    --username bsr \
+    --password $BSR_TOKEN \
+    --store-password-in-clear-text \
+    --configfile NuGet.config; \
+    fi
+
 COPY ["SURIMI-value-chain/SURIMI-value-chain.csproj", "SURIMI-value-chain/"]
 RUN dotnet restore "./SURIMI-value-chain/SURIMI-value-chain.csproj"
 COPY . .
