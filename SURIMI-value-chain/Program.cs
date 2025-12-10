@@ -23,6 +23,15 @@ namespace SURIMI_value_chain
             //builder.Services.AddSingleton<IEwEConfiguration, EwEConfiguration>();
             builder.Services.AddSingleton<IEwEController, EwEController>();
 
+            builder.Logging.ClearProviders();
+            builder.Services.AddLogging(opt =>
+            {
+                opt.AddSimpleConsole(c =>
+                {
+                    c.TimestampFormat = "[HH:mm:ss] ";
+                });
+            });
+
             var app = builder.Build();
 
 
