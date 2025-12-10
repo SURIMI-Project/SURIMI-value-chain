@@ -9,6 +9,7 @@ namespace SURIMI_value_chain
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.AddServiceDefaults();
 
             // Add services to the container.
 
@@ -22,6 +23,15 @@ namespace SURIMI_value_chain
             //builder.Services.AddSingleton<IEwECore, EwE.Wrapper.EwECore>();
             //builder.Services.AddSingleton<IEwEConfiguration, EwEConfiguration>();
             builder.Services.AddSingleton<IEwEController, EwEController>();
+
+            builder.Logging.ClearProviders();
+            builder.Services.AddLogging(opt =>
+            {
+                opt.AddSimpleConsole(c =>
+                {
+                    c.TimestampFormat = "[HH:mm:ss] ";
+                });
+            });
 
             var app = builder.Build();
 

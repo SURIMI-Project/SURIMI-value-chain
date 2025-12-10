@@ -10,18 +10,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BSR.Surimi.Surimi-Protocol.Grpc.Csharp" Version="1.74.10101.13+01790b97f17e" />
-    <PackageReference Include="BSR.Surimi.Surimi-Protocol.Protocolbuffers.Csharp" Version="32.1.10001.13+01790b97f17e" />
+    <PackageReference Include="BSR.Surimi.Surimi-Protocol.Grpc.Csharp" Version="1.76.10001.23+db58a72669b7" />
     <PackageReference Include="Eii.ControlledVocabularies" Version="1.0.*" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Google.Api.CommonProtos" Version="2.17.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
     <PackageReference Include="Grpc.StatusProto" Version="2.71.0" />
+    <PackageReference Include="SURIMI.Datamodel" Version="3.0.*" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SURIMI.ServiceDefaults\SURIMI.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
