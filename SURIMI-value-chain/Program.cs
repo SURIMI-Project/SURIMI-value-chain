@@ -1,5 +1,5 @@
 
-using SURIMI_value_chain.EwE;
+using SURIMI_value_chain.ValueChain;
 using SURIMI_value_chain.Services;
 
 namespace SURIMI_value_chain
@@ -20,9 +20,7 @@ namespace SURIMI_value_chain
             });
 
             //builder.Services.AddSingleton<CheckSimulationService>();
-            //builder.Services.AddSingleton<IEwECore, EwE.Wrapper.EwECore>();
-            //builder.Services.AddSingleton<IEwEConfiguration, EwEConfiguration>();
-            builder.Services.AddSingleton<IEwEController, EwEController>();
+            builder.Services.AddSingleton<IValueChainController, ValueChainController>();
 
             builder.Logging.ClearProviders();
             builder.Services.AddLogging(opt =>
@@ -38,7 +36,8 @@ namespace SURIMI_value_chain
 
             // Configure the HTTP request pipeline.
             app.MapGrpcService<ValueChainWorkflowService>();
-            app.MapGrpcService<ValueChainMarketService>();
+            // ToDo: value chain just needs to collect all sales summaries from SURIMI models; nothing else
+            //app.MapGrpcService<ValueChainMarketService>();
 
             app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 

@@ -1,15 +1,15 @@
 ﻿using Grpc.Core;
 using Grpc.Surimi;
-using SURIMI_value_chain.EwE;
+using SURIMI_value_chain.ValueChain;
 
 namespace SURIMI_value_chain.Services
 {
     public class ValueChainWorkflowService : WorkflowService.WorkflowServiceBase
     {
         private readonly ILogger<ValueChainWorkflowService> m_logger;
-        private readonly IEwEController m_controller;
+        private readonly IValueChainController m_controller;
 
-        public ValueChainWorkflowService(ILogger<ValueChainWorkflowService> logger, IEwEController controller)
+        public ValueChainWorkflowService(ILogger<ValueChainWorkflowService> logger, IValueChainController controller)
         {
             m_logger = logger;
             m_controller = controller;

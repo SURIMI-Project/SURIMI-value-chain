@@ -1,15 +1,16 @@
 ﻿using Grpc.Core;
 using Grpc.Surimi;
-using SURIMI_value_chain.EwE;
+using SURIMI_value_chain.ValueChain;
 
 namespace SURIMI_value_chain.Services
 {
+
     public class ValueChainMarketService : MarketService.MarketServiceBase
     {
         private readonly ILogger<ValueChainMarketService> m_logger;
-        private readonly IEwEController m_controller;
+        private readonly IValueChainController m_controller;
 
-        public ValueChainMarketService(ILogger<ValueChainMarketService> logger, IEwEController controller)
+        public ValueChainMarketService(ILogger<ValueChainMarketService> logger, IValueChainController controller)
         {
             m_logger = logger;
             m_controller = controller;

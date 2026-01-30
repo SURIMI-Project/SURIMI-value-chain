@@ -24,7 +24,7 @@ COPY ["NuGet.config", "."]
 
 # Add authentication for GitHub Packages
 RUN if [ ! -z "$GITHUB_TOKEN" ]; then \
-    dotnet nuget update source github-Official-EwE \
+    dotnet nuget update source github-Official-ValueChain \
     --username github \
     --password $GITHUB_TOKEN \
     --store-password-in-clear-text \

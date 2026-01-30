@@ -29,7 +29,7 @@ namespace SURIMI_value_chain
                 var metadata = new Metadata
                 {
                     { "method", context.Method },
-                    { "application", "EwE" }
+                    { "application", "ValueChain" }
                 };
                 throw new RpcException(status, metadata);
             }
