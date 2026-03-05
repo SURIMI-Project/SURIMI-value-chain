@@ -41,6 +41,7 @@ RUN if [ ! -z "$BSR_TOKEN" ]; then \
     fi
 
 COPY ["SURIMI-value-chain/SURIMI-value-chain.csproj", "SURIMI-value-chain/"]
+RUN dotnet nuget locals all --clear     # Clear local NuGet cache to ensure we get the latest packages, especially important when using tokens for private feeds
 RUN dotnet restore "./SURIMI-value-chain/SURIMI-value-chain.csproj"
 COPY . .
 WORKDIR "/src/SURIMI-value-chain"

@@ -4,7 +4,7 @@ using SURIMI_value_chain.EwE;
 
 namespace SURIMI_value_chain.Services
 {
-    public class ValueChainMarketService : MarketService.MarketServiceBase
+    public class ValueChainMarketService : MarketProviderService.MarketProviderServiceBase
     {
         private readonly ILogger<ValueChainMarketService> m_logger;
         private readonly IEwEController m_controller;
