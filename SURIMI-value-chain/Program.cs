@@ -1,4 +1,6 @@
 
+using SURIMI.Common.gRPC;
+using SURIMI.Common.gRPC.Services;
 using SURIMI_value_chain.EwE;
 using SURIMI_value_chain.Services;
 
@@ -16,6 +18,7 @@ namespace SURIMI_value_chain
             // Add services to the container.
             builder.Services.AddGrpc(options =>
             {
+                options.Interceptors.Add<VersionMetadataInterceptor>();
                 options.Interceptors.Add<ExceptionMetadataInterceptor>();
             });
 
@@ -23,6 +26,7 @@ namespace SURIMI_value_chain
             //builder.Services.AddSingleton<IEwECore, EwE.Wrapper.EwECore>();
             //builder.Services.AddSingleton<IEwEConfiguration, EwEConfiguration>();
             builder.Services.AddSingleton<IEwEController, EwEController>();
+            builder.Services.AddSingleton<ProtocolVersionService>();
 
             builder.Logging.ClearProviders();
             builder.Services.AddLogging(opt =>

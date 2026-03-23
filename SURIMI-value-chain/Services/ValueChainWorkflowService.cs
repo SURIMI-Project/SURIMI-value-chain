@@ -1,5 +1,7 @@
 ﻿using Grpc.Core;
 using Grpc.Surimi;
+using SURIMI.Common.gRPC;
+using SURIMI.Common.gRPC.Services;
 using SURIMI_value_chain.EwE;
 
 namespace SURIMI_value_chain.Services
@@ -8,11 +10,13 @@ namespace SURIMI_value_chain.Services
     {
         private readonly ILogger<ValueChainWorkflowService> m_logger;
         private readonly IEwEController m_controller;
+        private readonly string _version;
 
-        public ValueChainWorkflowService(ILogger<ValueChainWorkflowService> logger, IEwEController controller)
+        public ValueChainWorkflowService(ILogger<ValueChainWorkflowService> logger, IEwEController controller, ProtocolVersionService protocolVersionService)
         {
             m_logger = logger;
             m_controller = controller;
+            _version = protocolVersionService.LoadVersion();
         }
 
         public override async Task<InitialiseResponse> Initialise(InitialiseRequest request, ServerCallContext context)
@@ -87,6 +91,11 @@ namespace SURIMI_value_chain.Services
             var res = await m_controller.ContinueAsync();
 
             return new SimulateStepResponse() { SimulationId = request.SimulationId };
+        }
+
+        public override Task<GetProtocolVersionResponse> GetProtocolVersion(GetProtocolVersionRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(new GetProtocolVersionResponse() { ProtocolVersion = _version });
         }
 
         /// <summary>
