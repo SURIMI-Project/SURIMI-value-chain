@@ -1,4 +1,4 @@
-﻿using Grpc.Core;
+using Grpc.Core;
 using Grpc.Surimi;
 using SURIMI.Common.gRPC;
 using SURIMI.Common.gRPC.Services;
@@ -6,96 +6,116 @@ using SURIMI_value_chain.EwE;
 
 namespace SURIMI_value_chain.Services
 {
-    public class ValueChainWorkflowService : WorkflowService.WorkflowServiceBase
+    public class ValueChainService : Grpc.Surimi.ValueChainService.ValueChainServiceBase
     {
-        private readonly ILogger<ValueChainWorkflowService> m_logger;
+        private readonly ILogger<ValueChainService> m_logger;
         private readonly IEwEController m_controller;
-        private readonly string _version;
+        private readonly string m_version;
 
-        public ValueChainWorkflowService(ILogger<ValueChainWorkflowService> logger, IEwEController controller, ProtocolVersionService protocolVersionService)
+        public ValueChainService(ILogger<ValueChainService> logger, IEwEController controller, ProtocolVersionService protocolVersionService)
         {
             m_logger = logger;
             m_controller = controller;
-            _version = protocolVersionService.LoadVersion();
+            m_version = protocolVersionService.LoadVersion();
         }
 
-        public override async Task<InitialiseResponse> Initialise(InitialiseRequest request, ServerCallContext context)
+        public override async Task<InitialiseExperimentResponse> InitialiseExperiment(InitialiseExperimentRequest request, ServerCallContext context)
         {
-            GrpcValidation.ArgumentNotNullOrEmpty(request.ScenarioId);
+            GrpcValidation.ArgumentNotNullOrEmpty(request.ExperimentId);
+            GrpcValidation.ArgumentNotNullOrEmpty(request.ScenarioName);
 
-
-            m_logger.LogInformation($"Initializing simulation {request.SimulationId}, scenario {request.ScenarioId}...");
+            m_logger.LogInformation($"Initializing experiment {request.ExperimentId}, scenario {request.ScenarioName}...");
 
             try
             {
-                var surimiConfiguration = GetSurimiConfiguration(request.Simulation);
+                SURIMI.Datamodel.SurimiConfiguration surimiConfiguration = GetSurimiConfiguration(request.Simulation);
 
-                var result = await m_controller.StartAsync();
+                int result = await m_controller.StartAsync();
                 if (result != 1)
                 {
                     throw new RpcException(new Status(StatusCode.Internal, "Failed to initialise Value Chain"));
                 }
-                return new InitialiseResponse() { SimulationId = request.SimulationId };
+
+                return new InitialiseExperimentResponse() { ExperimentId = request.ExperimentId };
             }
             catch (Exception ex)
             {
-                m_logger.LogError(ex, "Error during Initialise");
+                m_logger.LogError(ex, "Error during InitialiseExperiment");
                 throw;
             }
         }
 
-        public override async Task<FinaliseResponse> Finalise(FinaliseRequest request, ServerCallContext context)
+        public override async Task<FinaliseExperimentResponse> FinaliseExperiment(FinaliseExperimentRequest request, ServerCallContext context)
         {
-            m_logger.LogInformation($"Finalizing simulation {request.SimulationId}");
+            m_logger.LogInformation($"Finalizing experiment {request.ExperimentId}");
 
             try
             {
-                var result = await m_controller.StopAsync();
+                bool result = await m_controller.StopAsync();
                 if (result == false)
                 {
                     throw new RpcException(new Status(StatusCode.Internal, "Failed to finalise Value Chain"));
                 }
-                return new FinaliseResponse() { SimulationId = request.SimulationId };
+
+                return new FinaliseExperimentResponse() { ExperimentId = request.ExperimentId };
             }
             catch (Exception ex)
             {
-                m_logger.LogError(ex, "Error during Finalise");
+                m_logger.LogError(ex, "Error during FinaliseExperiment");
                 throw;
             }
         }
 
-        public override async Task<CancelResponse> Cancel(CancelRequest request, ServerCallContext context)
+        public override async Task<CancelExperimentResponse> CancelExperiment(CancelExperimentRequest request, ServerCallContext context)
         {
-            m_logger.LogInformation($"Cancel simulation {request.SimulationId}");
+            m_logger.LogInformation($"Cancel experiment {request.ExperimentId}");
 
             try
             {
-                var result = await m_controller.StopAsync();
+                bool result = await m_controller.StopAsync();
                 if (result == false)
                 {
                     throw new RpcException(new Status(StatusCode.Internal, "Failed to cancel Value Chain"));
                 }
-                return new CancelResponse() { SimulationId = request.SimulationId };
+
+                return new CancelExperimentResponse() { ExperimentId = request.ExperimentId };
             }
             catch (Exception ex)
             {
-                m_logger.LogError(ex, "Error during Cancel");
+                m_logger.LogError(ex, "Error during CancelExperiment");
                 throw;
             }
         }
 
-        public override async Task<SimulateStepResponse> SimulateStep(SimulateStepRequest request, ServerCallContext context)
+        public override async Task<ExperimentStepResponse> ExperimentStep(ExperimentStepRequest request, ServerCallContext context)
         {
-            m_logger.LogInformation($"Simulate step for simulation {request.SimulationId}");
+            m_logger.LogInformation($"Simulate step for experiment {request.ExperimentId}");
 
-            var res = await m_controller.ContinueAsync();
+            bool result = await m_controller.ContinueAsync();
+            if (result == false)
+            {
+                throw new RpcException(new Status(StatusCode.Internal, "Failed to simulate step for Value Chain"));
+            }
 
-            return new SimulateStepResponse() { SimulationId = request.SimulationId };
+            return new ExperimentStepResponse() { ExperimentId = request.ExperimentId };
         }
 
         public override Task<GetProtocolVersionResponse> GetProtocolVersion(GetProtocolVersionRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new GetProtocolVersionResponse() { ProtocolVersion = _version });
+            return Task.FromResult(new GetProtocolVersionResponse() { ProtocolVersion = m_version });
+        }
+
+        public override async Task<UpdateSalesStatisticsResponse> UpdateSalesStatistics(UpdateSalesStatisticsRequest request, ServerCallContext context)
+        {
+            m_logger.LogInformation($"Updating sales statistics for experiment {request.ExperimentId}");
+
+            bool result = await m_controller.UpdateSales();
+            if (result == false)
+            {
+                throw new RpcException(new Status(StatusCode.Internal, "Failed to update sales statistics for Value Chain"));
+            }
+
+            return new UpdateSalesStatisticsResponse() { ExperimentId = request.ExperimentId };
         }
 
         /// <summary>
@@ -148,7 +168,7 @@ namespace SURIMI_value_chain.Services
                             .Select(u => new SURIMI.Datamodel.UnitType
                             {
                                 Quantity = u.Quantity ?? string.Empty,
-                                Unit = u.Unit_ ?? string.Empty, // Unit_ because 'unit' may be reserved in proto
+                                Unit = u.Unit_ ?? string.Empty,
                             })
                             .ToList()
                     }
