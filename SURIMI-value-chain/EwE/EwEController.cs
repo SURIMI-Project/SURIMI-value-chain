@@ -18,7 +18,7 @@ namespace SURIMI_value_chain.EwE
 
         public Task<bool> ContinueAsync(int timeoutMs = 60000)
         {
-            return Task.FromResult(false);
+            return Task.FromResult(true);
         }
 
         //public Task<Biomass> GetBiomassAsync()
