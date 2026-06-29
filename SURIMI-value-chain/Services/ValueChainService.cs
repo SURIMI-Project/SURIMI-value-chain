@@ -28,7 +28,7 @@ namespace SURIMI_value_chain.Services
 
             try
             {
-                SURIMI.Datamodel.SurimiConfiguration surimiConfiguration = GetSurimiConfiguration(request.Simulation);
+                SURIMI.Datamodel.SurimiContract surimiContract = GetSurimiContract(request.Simulation);
 
                 int result = await m_controller.StartAsync();
                 if (result != 1)
@@ -123,9 +123,9 @@ namespace SURIMI_value_chain.Services
         /// </summary>
         /// <param name="simulation"></param>
         /// <returns></returns>
-        private SURIMI.Datamodel.SurimiConfiguration GetSurimiConfiguration(Grpc.Surimi.Simulation simulation)
+        private SURIMI.Datamodel.SurimiContract GetSurimiContract(Grpc.Surimi.Simulation simulation)
         {
-            return new SURIMI.Datamodel.SurimiConfiguration
+            return new SURIMI.Datamodel.SurimiContract
             {
                 Simulation = new SURIMI.Datamodel.Simulation()
                 {
@@ -156,6 +156,7 @@ namespace SURIMI_value_chain.Services
                 {
                     Currency = simulation.Standards.Currency,
                     CountryCode = simulation.Standards.CountryCode,
+                    //CategoryCode = surimiContract.Standards?.CategoryCode ?? string.Empty,        TODO
                     DateAndTime = simulation.Standards.DateAndTime,
                     GearCode = simulation.Standards.GearCode,
                     LifeStage = simulation.Standards.LifeStage,
