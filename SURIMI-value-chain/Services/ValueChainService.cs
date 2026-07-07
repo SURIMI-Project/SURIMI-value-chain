@@ -206,6 +206,12 @@ namespace SURIMI_value_chain.Services
                             MarketCode = c.MarketCode,
                         })
                         .ToList(),
+                    Price_Categories = simulation.Items.PriceCategories
+                        .Select(c => new SURIMI.Datamodel.PriceCategory
+                        {
+                            CategoryCode = c.CategoryCode,
+                        })
+                        .ToList()
                 }
             };
         }
