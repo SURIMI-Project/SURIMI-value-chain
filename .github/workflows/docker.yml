@@ -27,11 +27,11 @@ jobs:
         run: |
           docker build \
             -f ./SURIMI-value-chain/Dockerfile \
-            -t ghcr.io/official-ewe/surimivaluechain:latest \
+            -t ghcr.io/surimi-project/surimivaluechain:latest \
             --secret id=GITHUB_TOKEN,env=GITHUB_TOKEN \
             --secret id=BSR_TOKEN,env=BSR_TOKEN \
             .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/official-ewe/surimivaluechain:latest
+          docker push ghcr.io/surimi-project/surimivaluechain:latest
