@@ -206,12 +206,18 @@ namespace SURIMI_value_chain.Services
                             MarketCode = c.MarketCode,
                         })
                         .ToList(),
-                    Price_Categories = simulation.Items.PriceCategories
+                    PriceCategories = simulation.Items.PriceCategories
                         .Select(c => new SURIMI.Datamodel.PriceCategory
                         {
                             CategoryCode = c.CategoryCode,
                         })
-                        .ToList()
+                        .ToList(),
+                    ClimateScenarios = simulation.Items.ClimateScenarios
+                    .Select(c => new SURIMI.Datamodel.ClimateScenario
+                    {
+                        ClimateScenarioCode = c.ClimateScenarioCode,
+                    })
+                    .ToList()
                 }
             };
         }
