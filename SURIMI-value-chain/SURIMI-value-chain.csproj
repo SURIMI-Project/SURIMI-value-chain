@@ -24,7 +24,7 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
     <PackageReference Include="Grpc.StatusProto" Version="2.71.0" />
     <PackageReference Include="SURIMI.Common" Version="1.0.*" />
-    <PackageReference Include="SURIMI.Datamodel" Version="3.0.*" />
+    <PackageReference Include="SURIMI.Datamodel" Version="3.0.13" />
   </ItemGroup>
 
   <ItemGroup>
