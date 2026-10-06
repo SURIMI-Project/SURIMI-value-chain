@@ -9,10 +9,10 @@ namespace SURIMI_value_chain.Services
     public class ValueChainService : Grpc.Surimi.ValueChainService.ValueChainServiceBase
     {
         private readonly ILogger<ValueChainService> m_logger;
-        private readonly IEwEController m_controller;
+        private readonly IValueChainController m_controller;
         private readonly string m_version;
 
-        public ValueChainService(ILogger<ValueChainService> logger, IEwEController controller, ProtocolVersionService protocolVersionService)
+        public ValueChainService(ILogger<ValueChainService> logger, IValueChainController controller, ProtocolVersionService protocolVersionService)
         {
             m_logger = logger;
             m_controller = controller;
@@ -85,19 +85,6 @@ namespace SURIMI_value_chain.Services
                 m_logger.LogError(ex, "Error during CancelExperiment");
                 throw;
             }
-        }
-
-        public override async Task<ExperimentStepResponse> ExperimentStep(ExperimentStepRequest request, ServerCallContext context)
-        {
-            m_logger.LogInformation($"Simulate step for experiment {request.ExperimentId}");
-
-            bool result = await m_controller.ContinueAsync();
-            if (result == false)
-            {
-                throw new RpcException(new Status(StatusCode.Internal, "Failed to simulate step for Value Chain"));
-            }
-
-            return new ExperimentStepResponse() { ExperimentId = request.ExperimentId };
         }
 
         public override Task<GetProtocolVersionResponse> GetProtocolVersion(GetProtocolVersionRequest request, ServerCallContext context)
