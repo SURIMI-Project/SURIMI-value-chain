@@ -1,0 +1,15 @@
+$kind: grpc-request
+url: http://localhost:7990
+methodPath: surimi.v1.ValueChainService.FinaliseExperiment
+methodDescriptor: CqgCCg9zdXJpbWlfdjEucHJvdG8SCXN1cmltaS52MSI2ChlGaW5hbGlzZUV4cGVyaW1lbnRSZXF1ZXN0EhkKDWV4cGVyaW1lbnRfaWQYASABKAlCAhABIjcKGkZpbmFsaXNlRXhwZXJpbWVudFJlc3BvbnNlEhkKDWV4cGVyaW1lbnRfaWQYASABKAlCAhABMnYKEVZhbHVlQ2hhaW5TZXJ2aWNlEmEKEkZpbmFsaXNlRXhwZXJpbWVudBIkLnN1cmltaS52MS5GaW5hbGlzZUV4cGVyaW1lbnRSZXF1ZXN0GiUuc3VyaW1pLnYxLkZpbmFsaXNlRXhwZXJpbWVudFJlc3BvbnNlQiEKEWV1LnByb2plY3Quc3VyaW1pqgILR3JwYy5TdXJpbWk=
+message:
+  content: |-
+    {
+        "experiment_id": "3CD4786B-AABA-482E-9A2D-CAC4B2F6BAD6",
+        "current_date_time": "2010-01-01T00:00:00Z"
+    }
+
+settings: {}
+schema:
+  source: auto
+order: 1000

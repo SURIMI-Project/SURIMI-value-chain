@@ -1,6 +1,5 @@
 ﻿using Eii.ControlledVocabularies.Core;
-using Eii.ControlledVocabularies.Utils;
-using Grpc.Surimi;
+using SURIMI.Datamodel;
 
 namespace SURIMI_value_chain.EwE
 {
@@ -21,21 +20,6 @@ namespace SURIMI_value_chain.EwE
             return Task.FromResult(true);
         }
 
-        //public Task<Biomass> GetBiomassAsync()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public Task<CatchDispositionSummary> GetCatchDispositionSummaryAsync(DateTime start, DateTime end)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<SalesSummary>> UpdateSalesSummariesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<int> StartAsync(int timeoutMs = 60000)
         {
             return Task.FromResult(1);
@@ -47,9 +31,15 @@ namespace SURIMI_value_chain.EwE
         }
 
 
-        public Task<bool> UpdateSales()
+        public Task<bool> UpdateSalesStatisticsAsync()
         {
             return Task.FromResult(true);
+        }
+
+
+        Task<ValueChainSummary> IEwEController.GetValueChainAsync(string experimentId)
+        {
+            return Task.FromResult(new ValueChainSummary() { ValueChainYears = new List<ValueChainYear>() });
         }
 
         #region EwE helpers

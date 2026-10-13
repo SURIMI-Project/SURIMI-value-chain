@@ -109,13 +109,25 @@ namespace SURIMI_value_chain.Services
         {
             m_logger.LogInformation($"Updating sales statistics for experiment {request.ExperimentId}");
 
-            bool result = await m_controller.UpdateSales();
+            bool result = await m_controller.UpdateSalesStatisticsAsync();
             if (result == false)
             {
                 throw new RpcException(new Status(StatusCode.Internal, "Failed to update sales statistics for Value Chain"));
             }
 
             return new UpdateSalesStatisticsResponse() { ExperimentId = request.ExperimentId };
+        }
+
+        public override async Task<GetValueChainResponse> GetValueChain(GetValueChainRequest request, ServerCallContext context)
+        {
+            m_logger.LogInformation($"Getting value chain for experiment {request.ExperimentId}");
+         
+            var valueChain = await m_controller.GetValueChainAsync(request.ExperimentId);
+            if (valueChain == null)
+            {
+                throw new RpcException(new Status(StatusCode.Internal, "Failed to get value chain for Value Chain"));
+            }
+            return new GetValueChainResponse() { ExperimentId = request.ExperimentId};
         }
 
         /// <summary>
