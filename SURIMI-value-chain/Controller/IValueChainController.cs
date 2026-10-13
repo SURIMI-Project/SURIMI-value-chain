@@ -10,5 +10,6 @@ namespace SURIMI_value_chain.EwE
         Task<bool> UpdateSales();
         //Task<Biomass> GetBiomassAsync();
         Task<List<SalesSummary>> UpdateSalesSummariesAsync();
+        Task<CatchDispositionSummary> GetCatchDispositionSummaryAsync(DateTime start, DateTime end);
     }
 }
