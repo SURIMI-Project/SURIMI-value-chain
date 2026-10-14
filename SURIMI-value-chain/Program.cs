@@ -23,10 +23,11 @@ namespace SURIMI_value_chain
             });
             builder.Services.AddGrpcReflection();
 
+            builder.Services.AddGrpcReflection();
             //builder.Services.AddSingleton<CheckSimulationService>();
             //builder.Services.AddSingleton<IEwECore, EwE.Wrapper.EwECore>();
             //builder.Services.AddSingleton<IEwEConfiguration, EwEConfiguration>();
-            builder.Services.AddSingleton<IEwEController, EwEController>();
+            builder.Services.AddSingleton<IValueChainController, ValueChainController>();
             builder.Services.AddSingleton<ProtocolVersionService>();
 
             builder.Logging.ClearProviders();
@@ -44,7 +45,6 @@ namespace SURIMI_value_chain
             // Configure the HTTP request pipeline.
             app.MapGrpcService<ValueChainService>();
             app.MapGrpcReflectionService();
-
             app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
             app.Run();
