@@ -1,4 +1,4 @@
-﻿using Grpc.Surimi;
+﻿using SURIMI.Datamodel;
 using ValueChain;
 
 namespace SURIMI_value_chain.EwE
@@ -32,18 +32,6 @@ namespace SURIMI_value_chain.EwE
             return Task.FromResult(true);
         }
 
-        public Task<CatchDispositionSummary> GetCatchDispositionSummaryAsync(DateTime start, DateTime end)
-        {
-            // Rik, let's discuss
-            throw new NotImplementedException();
-        }
-
-        public Task<List<SalesSummary>> UpdateSalesSummariesAsync()
-        {
-            // Rik, let's discuss
-            throw new NotImplementedException();
-        }
-
         public Task<int> StartAsync(int timeoutMs = 60000)
         {
             return Task.FromResult(1);
@@ -54,10 +42,14 @@ namespace SURIMI_value_chain.EwE
             return Task.FromResult(true);
         }
 
-        public Task<bool> UpdateSales()
+        public Task<bool> UpdateSalesStatisticsAsync()
         {
-            // This method can go
-            return Task.FromResult(true);
+            throw new NotImplementedException();
+        }
+
+        public Task<SURIMI.Datamodel.ValueChainSummary> GetValueChainAsync(string experimentId)
+        {
+            return Task.FromResult(new ValueChainSummary() { ValueChainYears = new List<ValueChainYear>() });
         }
     }
 }
