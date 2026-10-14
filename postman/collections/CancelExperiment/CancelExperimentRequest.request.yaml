@@ -1,0 +1,13 @@
+$kind: grpc-request
+url: http://localhost:7990
+methodPath: surimi.v1.ValueChainService.CancelExperiment
+methodDescriptor: Cp4CCg9zdXJpbWlfdjEucHJvdG8SCXN1cmltaS52MSI0ChdDYW5jZWxFeHBlcmltZW50UmVxdWVzdBIZCg1leHBlcmltZW50X2lkGAEgASgJQgIQASI1ChhDYW5jZWxFeHBlcmltZW50UmVzcG9uc2USGQoNZXhwZXJpbWVudF9pZBgBIAEoCUICEAEycAoRVmFsdWVDaGFpblNlcnZpY2USWwoQQ2FuY2VsRXhwZXJpbWVudBIiLnN1cmltaS52MS5DYW5jZWxFeHBlcmltZW50UmVxdWVzdBojLnN1cmltaS52MS5DYW5jZWxFeHBlcmltZW50UmVzcG9uc2VCIQoRZXUucHJvamVjdC5zdXJpbWmqAgtHcnBjLlN1cmltaQ==
+message:
+  content: |-
+    {
+        "experiment_id": "3CD4786B-AABA-482E-9A2D-CAC4B2F6BAD6"
+    }
+settings: {}
+schema:
+  source: auto
+order: 1000

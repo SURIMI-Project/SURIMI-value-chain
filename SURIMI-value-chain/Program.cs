@@ -21,6 +21,7 @@ namespace SURIMI_value_chain
                 options.Interceptors.Add<VersionMetadataInterceptor>();
                 options.Interceptors.Add<ExceptionMetadataInterceptor>();
             });
+            builder.Services.AddGrpcReflection();
 
             builder.Services.AddGrpcReflection();
             //builder.Services.AddSingleton<CheckSimulationService>();
