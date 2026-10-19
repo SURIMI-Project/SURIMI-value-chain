@@ -11,13 +11,19 @@
 
   <ItemGroup>
     <Compile Remove="Models\**" />
+    <Compile Remove="Properties\PublishProfiles\**" />
     <Content Remove="Models\**" />
+    <Content Remove="Properties\PublishProfiles\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Properties\PublishProfiles\**" />
     <None Remove="Models\**" />
+    <None Remove="Properties\PublishProfiles\**" />
+    <_WebToolingArtifacts Remove="Properties\PublishProfiles\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BSR.Surimi.Surimi-Protocol.Grpc.Csharp" Version="1.84.10001.99+61957519940d" />
+    <PackageReference Include="Eii.BlobStore.S3" Version="1.0.6" />
     <PackageReference Include="Eii.ValueChain" Version="1.0.*" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.84.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
@@ -30,7 +36,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Includes\anchovy_bay\" />
+    <Folder Include="Includes\northwestern_med\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Includes\anchovy_bay\anchovy_bay.vc.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Includes\northwestern_med\northwestern_med.vc.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
