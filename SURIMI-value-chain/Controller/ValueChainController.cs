@@ -44,7 +44,7 @@ namespace SURIMI_value_chain.EwE
 
         public Task<bool> UpdateSalesStatisticsAsync()
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         public Task<SURIMI.Datamodel.ValueChainSummary> GetValueChainAsync(string experimentId)

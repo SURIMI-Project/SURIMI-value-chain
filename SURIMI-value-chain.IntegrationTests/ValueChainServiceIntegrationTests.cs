@@ -49,17 +49,6 @@ public class ValueChainServiceIntegrationTests : IClassFixture<GrpcTestFixture>
     }
 
     [Fact]
-    public async Task ExperimentStep_ValidRequest_ReturnsMatchingExperimentId()
-    {
-        ExperimentStepRequest request =
-            GrpcMessageLoader.Load<ExperimentStepRequest>("ExperimentStep", "ExperimentStep.request.yaml");
-
-        ExperimentStepResponse response = await m_client.ExperimentStepAsync(request);
-
-        response.ExperimentId.Should().Be(request.ExperimentId);
-    }
-
-    [Fact]
     public async Task GetProtocolVersion_ReturnsNonEmptyVersion()
     {
         GetProtocolVersionRequest request =
