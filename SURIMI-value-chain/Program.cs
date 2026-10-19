@@ -46,6 +46,7 @@ namespace SURIMI_value_chain
             builder.Services.AddGrpcReflection();
             builder.Services.AddSingleton<IValueChainController, ValueChainController>();
             builder.Services.AddSingleton<ProtocolVersionService>();
+            builder.Services.AddTransient<VaultService>();
 
             builder.Logging.ClearProviders();
             builder.Services.AddLogging(opt =>

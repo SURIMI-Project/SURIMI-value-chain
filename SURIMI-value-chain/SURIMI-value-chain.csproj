@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BSR.Surimi.Surimi-Protocol.Grpc.Csharp" Version="1.84.10001.99+61957519940d" />
-    <PackageReference Include="Eii.BlobStore.S3" Version="1.0.6" />
+    <PackageReference Include="BSR.Surimi.Surimi-Protocol.Grpc.Csharp" Version="1.84.10001.101+e8672e632cd9" />
+    <PackageReference Include="Eii.BlobStore.S3" Version="1.0.*" />
     <PackageReference Include="Eii.ValueChain" Version="1.0.*" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.84.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
